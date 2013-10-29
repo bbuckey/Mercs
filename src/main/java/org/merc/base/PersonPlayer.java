@@ -14,6 +14,7 @@ public class PersonPlayer extends Player {
 	private int exp;
 	private int gold;
 	private int cash;
+	private String playerName;
 	private Date lastcashtime;
 	private Merc merc;
 	
@@ -27,6 +28,13 @@ public class PersonPlayer extends Player {
 		this.merc = _merc;
 	}
 	
+	public void setPlayerName(String s){
+		this.playerName = s;
+	}
+	
+	public String getPlayerName(){
+		return this.playerName;
+	}
 	public Merc getMerc(){
 		return merc;
 	}
@@ -55,7 +63,7 @@ public class PersonPlayer extends Player {
 		
 	}
 	
-	public int setLevel(){
+	public int getLevel(){
 		return this.level;
 	}
 	

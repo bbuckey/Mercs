@@ -12,8 +12,8 @@ import org.merc.base.Computer;
 
 public class BattleField {
 	
-	private List<ComputerPlayer> computerList;
-	private BossMerc boss;
+	private List<Computer> computerList;
+	private Computer boss;
 	private PersonPlayer personPlayer;
 	private int id;
 	private int level_number;
@@ -37,10 +37,10 @@ public class BattleField {
 	}
 	
 	public BattleField(){
-		computerList = new ArrayList<ComputerPlayer>();
+		computerList = new ArrayList<Computer>();
 	}
 	
-	public BattleField(List<ComputerPlayer> _computerPlayer, PersonPlayer _personPlayer,Computer _boss){
+	public BattleField(List<Computer> _computerPlayer, PersonPlayer _personPlayer,Computer _boss){
 		computerList = _computerPlayer;
 		personPlayer = _personPlayer;
 		boss = (BossMerc)_boss;
@@ -50,7 +50,7 @@ public class BattleField {
 		Merc playerMerc = personPlayer.getMerc();
 		int hp = playerMerc.getHP();
 		int move = 0;
-		for(ComputerPlayer cp : computerList){
+		for(Computer cp : computerList){
 			
 			hp = fight(cp,hp,playerMerc.getATK(),move);
 			if(hp >= 0){

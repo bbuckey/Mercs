@@ -10,15 +10,15 @@ public class PlayerWeapons {
 	
 	public PlayerWeapons(){;}
 	
-	void setID(int _id){
+	public void setID(int _id){
 		this.id = _id;
 	}
 	
-	void setplayerID(int playerID){
+	public void setplayerID(int playerID){
 		this.player_id = playerID;
 	}
 	
-	void setWeaponsID(int weaponsID){
+	public void setWeaponsID(int weaponsID){
 		this.weapons_id = weaponsID;
 	}
 	

@@ -2,8 +2,10 @@ package org.merc.dao;
 
 import org.merc.dao.BaseDao;
 import org.merc.base.Merc;
+
 import java.util.List;
 import java.util.ArrayList;
+
 import com.almworks.sqlite4java.SQLiteStatement;
 
 public class MercDao extends BaseDao{
@@ -16,6 +18,14 @@ public class MercDao extends BaseDao{
 	
 	public MercDao() throws Exception{
 		super();
+	}
+	
+	
+	public void insertRecord(String bfid, int hp, int atk,int def) throws Exception {
+		String s = String.format("insert into Mercs(mercname,hp,atk,def) "
+				+ "values(\"%s\", %d, %d, %d);",bfid,hp,atk,def);
+
+		super.runDDL(s);
 	}
 	
 	

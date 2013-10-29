@@ -25,15 +25,16 @@ public class BossMercDao extends BaseDao{
 	}
 	
 	
-	public void insertRecord(int mercid, int weapid, int bfid) throws Exception {
-		String s = String.format("insert into BattleFieldDrops(mercs_id, weapons_id,battlefield_id)values(%f, %f, %f)",mercid,weapid,bfid);
+	public void insertRecord(int bfid, int hp, int atk,int def, int exp, int gold, String dropids, int holdAtks) throws Exception {
+		String s = String.format("insert into BossMercs(holdatk,battlefield_id,hp,atk,def,exp,gold,drop_ids)"
+				+ "values(%d, %d, %d,%d, %d, %d, %d, \"%s\")",holdAtks,bfid,hp,atk,def,exp,gold,dropids);
 		super.runDDL(s);
 	}
 	
 	
-	public List getAllBattleFields() throws Exception{
+	public List getAllBossMercs() throws Exception{
 		List dbobjects = new ArrayList();
-		String sql = "Select * from BattleFieldDrops";
+		String sql = "Select * from BossMercs";
 		SQLiteStatement statement = super.runSelectStatement(sql);
 		while(true){
 			if(statement.step()){

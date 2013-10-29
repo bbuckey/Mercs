@@ -21,12 +21,12 @@ public class BattleFieldDropsDao extends BaseDao{
 	
 	
 	public void insertRecord(int mercid, int weapid, int bfid) throws Exception {
-		String s = String.format("insert into BattleFieldDrops(mercs_id, weapons_id,battlefield_id)values(%f, %f, %f)",mercid,weapid,bfid);
+		String s = String.format("insert into BattleFieldDrops(mercs_id, weapons_id,battlefield_id)values(%d, %d, %d)",mercid,weapid,bfid);
 		super.runDDL(s);
 	}
 	
 	
-	public List getAllBattleFields() throws Exception{
+	public List getAllBattleFieldDrops() throws Exception{
 		List dbobjects = new ArrayList();
 		String sql = "Select * from BattleFieldDrops";
 		SQLiteStatement statement = super.runSelectStatement(sql);

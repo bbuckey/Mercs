@@ -17,7 +17,7 @@ public class BattleFieldDao extends BaseDao {
 	}
 
 	public void insertRecord(int level) throws Exception {
-		String s = String.format("insert into BattleField(level_number)values(%f)",level);
+		String s = String.format("insert into BattleField(level_number)values(%d)",level);
 		super.runDDL(s);
 	}
 	

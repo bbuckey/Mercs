@@ -2,6 +2,8 @@ package org.merc.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.merc.base.BossMerc;
 import org.merc.dao.BaseDao;
@@ -24,14 +26,43 @@ public class BossMercDao extends BaseDao{
 		super();
 	}
 	
-	
+	/**
+	 * 
+	 * @param bfid
+	 * @param hp
+	 * @param atk
+	 * @param def
+	 * @param exp
+	 * @param gold
+	 * @param dropids
+	 * @param holdAtks
+	 * @throws Exception
+	 */
 	public void insertRecord(int bfid, int hp, int atk,int def, int exp, int gold, String dropids, int holdAtks) throws Exception {
 		String s = String.format("insert into BossMercs(holdatk,battlefield_id,hp,atk,def,exp,gold,drop_ids)"
 				+ "values(%d, %d, %d,%d, %d, %d, %d, \"%s\")",holdAtks,bfid,hp,atk,def,exp,gold,dropids);
 		super.runDDL(s);
 	}
 	
-	
+	@Override
+	public void updateRecord(int id, Map<String,Object> m) throws Exception{
+		String s = "update BossMercs set ";
+		String loop = " ";
+		Set set = m.keySet();
+		for(String o : m.keySet()){
+			if(m.get(o) instanceof String){
+			 loop += o + " = " + String.valueOf(m.get(o)) + " ";
+			} else {
+				loop += o + " = \"" + String.valueOf(m.get(o)) + "\" ";
+			}
+			m.remove(o);
+			if(!m.isEmpty()){
+				loop += " , ";
+			}
+		}
+		s = String.format(s + loop + " where id = %d",id);
+		super.runDDL(s);
+	}
 	public List getAllBossMercs() throws Exception{
 		List dbobjects = new ArrayList();
 		String sql = "Select * from BossMercs";

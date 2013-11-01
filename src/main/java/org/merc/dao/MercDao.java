@@ -3,8 +3,10 @@ package org.merc.dao;
 import org.merc.dao.BaseDao;
 import org.merc.base.Merc;
 
+import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
 
 import com.almworks.sqlite4java.SQLiteStatement;
 
@@ -28,6 +30,25 @@ public class MercDao extends BaseDao{
 		super.runDDL(s);
 	}
 	
+	@Override
+	public void updateRecord(int id, Map<String,Object> m) throws Exception{
+		String s = "update Mercs set ";
+		String loop = " ";
+		Set set = m.keySet();
+		for(String o : m.keySet()){
+			if(m.get(o) instanceof String){
+			 loop += o + " = " + String.valueOf(m.get(o)) + " ";
+			} else {
+				loop += o + " = \"" + String.valueOf(m.get(o)) + "\" ";
+			}
+			m.remove(o);
+			if(!m.isEmpty()){
+				loop += " , ";
+			}
+		}
+		s = String.format(s + loop + " where id = %d",id);
+		super.runDDL(s);
+	}
 	
 	public List getAllMercs() throws Exception{
 		List dbobjects = new ArrayList();

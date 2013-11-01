@@ -8,6 +8,8 @@ import com.almworks.sqlite4java.SQLiteStatement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class PlayerDao extends BaseDao{
 	
@@ -22,7 +24,16 @@ public class PlayerDao extends BaseDao{
 	public PlayerDao() throws Exception{
 		super();
 	}
-	
+	/**
+	 * 
+	 * @param plevel
+	 * @param bfid
+	 * @param hp
+	 * @param atk
+	 * @param def
+	 * @param d
+	 * @throws Exception
+	 */
 	public void insertRecord(int plevel, String bfid, int hp, int atk,int def, Date d) throws Exception {
 		String s = String.format("insert into Player(level,playername,hp,atk,def,lastcashtime) "
 				+ "values(%d, \"%s\", %d, %d, %d, %tD);",plevel,bfid,hp,atk,def,d);
@@ -30,7 +41,25 @@ public class PlayerDao extends BaseDao{
 		super.runDDL(s);
 	}
 	
-	
+	@Override
+	public void updateRecord(int id, Map<String,Object> m) throws Exception{
+		String s = "update Player set ";
+		String loop = " ";
+		Set set = m.keySet();
+		for(String o : m.keySet()){
+			if(m.get(o) instanceof String){
+			 loop += o + " = " + String.valueOf(m.get(o)) + " ";
+			} else {
+				loop += o + " = \"" + String.valueOf(m.get(o)) + "\" ";
+			}
+			m.remove(o);
+			if(!m.isEmpty()){
+				loop += " , ";
+			}
+		}
+		s = String.format(s + loop + " where id = %d",id);
+		super.runDDL(s);
+	}
 	public List getAllPlayers() throws Exception{
 		List dbobjects = new ArrayList();
 		String sql = "Select * from Player";

@@ -1,17 +1,20 @@
 package org.merc.dao;
 
+import java.util.Map;
+
 import com.almworks.sqlite4java.SQLiteStatement;
+
 import sqlite.SQLRunner;
 
 
-public class BaseDao {
+abstract class BaseDao {
 	
 	protected SQLRunner sqldb;
 	
 	
 	public BaseDao() throws Exception{
 		sqldb = new SQLRunner("./src/main/application/mercs.db");
-		createthemercdb();
+		//createthemercdb();
 	}
 	
 	public BaseDao(String s) throws Exception{
@@ -52,4 +55,7 @@ public class BaseDao {
 		sqldb.runDMLStatmenet(s);
 
 	}
+	
+	public abstract void updateRecord(int id, Map<String,Object> m) throws Exception;
+	
 }

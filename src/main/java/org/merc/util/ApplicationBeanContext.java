@@ -4,6 +4,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.merc.dao.*;
+import org.merc.main.*;
 
 
 public class ApplicationBeanContext {
@@ -57,5 +58,8 @@ public class ApplicationBeanContext {
 		return (WeaponsDao)getABean("weaponsDao");
 	}
 	
+	public static MercsForHire createMercForHire(){
+		return (MercsForHire)getABean("mercForHire");
+	}
 	
 }

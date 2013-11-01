@@ -16,16 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public final class MercsForHire {
 
-	MercDao bd;
+	MercDao mercs;
 	
 	MercsForHire(){;}
 	
 	public static void main(String[] args) {
-		MercsForHire mfh = new MercsForHire();
-		 MercDao mercDao;
-		 mercDao = ApplicationBeanContext.createMercs();
+		MercsForHire mfh = ApplicationBeanContext.createMercForHire();
+		 //MercDao mercDao;
+		// mercDao = ApplicationBeanContext.createMercs();
 			//bd.insertRecord("Tight Spot", 140, 20, 0);
-			mfh.printmerclist(mercDao);
+			mfh.printmerclist();
 		PersonPlayer pp = new PersonPlayer(new Merc(((int)(Math.random()*100000) % 1000),
 				((int)(Math.random()*100000) % 100), false));
 		List<Computer> clist = new ArrayList<Computer>();
@@ -41,13 +41,16 @@ public final class MercsForHire {
 	}
 	
 	@Autowired
-	public void printmerclist(MercDao mercDao){
-		try{
-			this.bd = mercDao;
+	public void setMercs(MercDao mercDao){
+			this.mercs = mercDao;
 			//bd = ApplicationBeanContext.createMercs();
 			//bd.insertRecord("Tight Spot", 140, 20, 0);
-			List<Merc> mercs = bd.getAllMercs();
-			for(Merc m : mercs){
+	}
+	
+	public void printmerclist(){
+		try{
+			List<Merc> merc = this.mercs.getAllMercs();
+			for(Merc m : merc){
 				System.out.println("Mercs Name: " + m.getMercName());
 				System.out.println("Mercs HP: " + m.getHP());
 				System.out.println("Mercs ATK: " + m.getATK());
@@ -57,5 +60,7 @@ public final class MercsForHire {
 		} catch(Throwable t){
 			t.printStackTrace();
 		}
+		
 	}
+	
 }
